@@ -29,11 +29,3 @@ class FilesService():
         
         return combined_df
     
-    def filter_and_sum_by_month(dataframe):
-        monthly_summary = dataframe.groupby(
-            ['year', 'month', 'category']
-        )['amount'].sum().reset_index()
-
-        monthly_summary.columns = ['year', 'month', 'category', 'total_amount']
-
-        return monthly_summary
