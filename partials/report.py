@@ -11,9 +11,9 @@ def report():
 
     option_month_ref = st.selectbox('Selecione um mês:', data['month_ref'].sort_values(ascending=False).unique())
 
-    total_month, value_installments, percentMonthSubInstallments, totalMonthSubInstallments, maxTitleSum, percentMonthSubInstallmentsInTitle, totalMonthSubInstallmentsInTitle, totalMov, maxTitle, maxTitleCount, movDiff, movDaily, filtered_df, result_df = ReportService.buildInfo(option_month_ref, data)
+    total_month, value_installments, percentMonthSubInstallments, maxTitleSum, percentMonthSubInstallmentsInTitle, totalMov, maxTitle, maxTitleCount, movDaily, filtered_df, result_df = ReportService.buildInfo(option_month_ref, data)
     
-    kpi1, kpi2, kpi3, kpi4 = st.columns(4)
+    kpi1, kpi2, kpi3 = st.columns(3)
     kpi1.metric(
         label="Total " + option_month_ref,
         value=ReportService.format_money(total_month)
@@ -29,13 +29,13 @@ def report():
         value="{:.2f}%".format(percentMonthSubInstallments)
     )
 
-    kpi4.metric(
-        label="Total - Parcelamentos",
-        value=ReportService.format_money(totalMonthSubInstallments)
+    kpi1.metric(
+        label="Movimentações " + maxTitle,
+        value=maxTitleCount
     )
 
     kpi2.metric(
-        label= maxTitle,
+        label= "Soma dos valores do " + maxTitle,
         value=ReportService.format_money(maxTitleSum)
     )
 
@@ -44,34 +44,22 @@ def report():
         value="{:.2f}%".format(percentMonthSubInstallmentsInTitle)
     )
 
-    kpi4.metric(
-        label="Total - " + maxTitle,
-        value=ReportService.format_money(totalMonthSubInstallmentsInTitle)
-    )
-
-    kpi2.metric(
+    kpi1.metric(
         label= "Total de Movimentações",
         value=totalMov
     )
 
-    kpi3.metric(
-        label="Movimentações " + maxTitle,
-        value=maxTitleCount
-    )
-
-    kpi4.metric(
-        label="Diferentes Movimentações",
-        value=movDiff
-    )
-
-    kpi4.metric(
+    kpi2.metric(
         label="Movimentações por Dia",
         value="{:.2f}".format(movDaily)
     )
 
-    st.markdown("##### Compras Recorrentes")
-    st.dataframe(result_df)
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown("##### Compras Recorrentes")
+        st.dataframe(result_df)
+    with col2:
+        st.markdown('##### Dados Carregados:')
+        st.write(filtered_df)
     
-    st.markdown('##### Dados Carregados:')
-    st.write(filtered_df)
     
