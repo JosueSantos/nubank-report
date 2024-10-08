@@ -15,7 +15,7 @@ def main():
     st.header('Relatório de Extrato NuBank')
     st.caption('by. Josué Santos')
 
-    report_local()
+    report()
     
 if __name__ == '__main__':
     main()
