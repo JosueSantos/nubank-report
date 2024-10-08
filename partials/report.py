@@ -16,7 +16,7 @@ def report():
         
         df = pd.read_csv(data)
         df['date'] = pd.to_datetime(df['date'])
-        df = df[df['category'] != 'payment']
+        df = df[df['title'] != 'Pagamento recebido']
         df = df.sort_values(by='date')
 
         total_month, value_installments, percentMonthSubInstallments, maxTitleSum, percentMonthSubInstallmentsInTitle, totalMov, maxTitle, maxTitleCount, movDaily, filtered_df, result_df = ReportService.buildInfo(df)

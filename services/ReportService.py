@@ -13,7 +13,7 @@ class ReportService():
         matches = re.findall(r'\d+/\d+', title)
         return len(matches)
     
-    def buildInfo(option_month_ref, data):
+    def buildInfoLocal(option_month_ref, data):
         filtered_df = data[data['month_ref'] == option_month_ref]
     
         title_installments = filtered_df['title'].apply(ReportService.count_installments)
